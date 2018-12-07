@@ -4,3 +4,6 @@ version: 1.0
 description: Theme for designing and developing personal websites for serious writers, professionals, bloggers.
 author: Md. Sabuj Sarker
 website: https://www.sabuj.me
+
+# dir info
+assets_dir: assets
