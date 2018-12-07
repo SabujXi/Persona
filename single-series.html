@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <main class="col-md-8">
+            <h1>{{content.title}}</h1>
+            
+            <hr/>
+            <div>
+                {% if content.book_toc %}
+                    {{ content.book_toc.as_html(4) | safe }}
+                {% endif %}
+            </div>
+            
+            <hr/>
+            <div>
+                    {{content.body.as_markup}}
+            </div>
+            
+        </main>
+{% endblock content %}
+
+
+{% block widgets %}
+    <div class="widget widget-toc">
+        <h3 class="widget-title">TOC</h3>
+        <div>
+            {{ content.toc.html | safe}}
+        </div>
+    </div>
+
+    {% if content.tags %}
+    <div class="widget widget-tags">
+        <h3 class="widget-title">Tags</h3>
+        <ul>
+            {% for tag in content.tags %}
+                <li>
+                    <a href="{{tag.curl.path}}">{{tag.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+
+    {% if content.categories %}
+    <div class="widget widget-categories">
+        <h3 class="widget-title">Categories</h3>
+        <ul>
+            {% for category in content.categories %}
+                <li>
+                    <a href="{{category.curl.path}}">{{category.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+
+    {{ super() }}
+
+
+
+{% endblock widgets %}

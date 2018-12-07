@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+					<main class="col-md-8">
+                        <div class="row">
+                            <div id="home-imp-sections">
+                                <div class="col-xs-12">
+                                    <div class="imp-section">
+                                        {{content.body.as_markup}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {% if content.pagination %}
+                            {% for cont in content.pagination.contents %}
+                                <article>
+                                    <header class="entry-header">
+                                        <h1 class="list-entry-title">
+                                            <a href="{{ cont.curl.url }}">{{cont.cfields.title}}</a>
+                                        </h1>
+                                        <div class="list-entry-meta">
+                                            {% if cont.author %}
+                                            <span class="list-entry-author"><a href="{{cont.author.curl.url}}">{{cont.author.name}}</a></span>
+                                            {% endif %}
+
+                                            {% if cont.tags %}
+                                             <span class="list-entry-tags">
+                                                {% for tag in cont.tags %}
+                                                    {#% if not loop.first %#} | <a href="{{tag.curl.url}}">{{tag}}</a>
+                                                {% else %}
+                                                {% endfor %}
+
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                    </header>
+                                    {% if cont.summary %}
+                                        <div class="list-entry-summary clearfix">
+                                            <p>{{ cont.summary }}...
+                                                <a class="list-entry-read-more" href="{{ cont.curl.url }}" class="more-link">Continue reading <span class="meta-nav"></span></a>
+                                            </p>
+                                        </div>
+                                    {% endif %}
+                                </article>
+                            {% endfor %}
+
+
+                            <div class="row pagination-container">
+                                <div class="col-xs-6 prev-btn next-prev-btn">
+                                    {% if content.pagination.has_previous %}
+                                        <a href="{{content.pagination.previous_page.curl.url }}">Previous Page</a>
+                                    {% else %}
+
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-xs-6 next-btn next-prev-btn">
+                                    {% if content.pagination.has_next %}
+                                        <a href="{{content.pagination.next_page.curl.url }}">Next Page</a>
+                                    {% else %}
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% else %}
+
+                        {% endif %}
+
+                    </main>
+
+{% endblock content %}}

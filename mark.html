@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+        {% block title %}
+            {{mark.title}}
+        {% endblock %}
+
+{% block content %}
+
+        <main class="col-md-8">
+            <h1> {{mark.title}}</h1>
+            <hr/>
+            <ol class="plain-content-list">
+            {% for cnt in mark.contents %}
+                <li> <a href="{{cnt.curl.url}}"> {{cnt.title}} </a> </li>
+            {% endfor %}
+            </ol>
+        </main>
+
+{% endblock content %}

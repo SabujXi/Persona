@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+        {% block title %}
+            {{content.title}}
+        {% endblock %}
+        </title>
+
+
+
+	    <!-- css -->
+		<link rel="stylesheet" type="text/css" href="{% getc 'url://file:/statics/template/libs/bootstrap3/css/bootstrap.min.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% getc 'url://sass:/template/synamic.scss' %}">
+
+	    <!-- js -->
+	    <script type="text/javascript" src="{% getc 'url://file:/statics/template/libs/jquery/jquery3.slim.min.js' %}"></script>
+        {#<script src="{% getc 'url://file:/statics/template/libs/popper/popper.min.js' %}"></script>#}
+        <script type="text/javascript" src="{% getc 'url://file:/statics/template/libs/bootstrap3/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% getc 'url://file:/statics/template/js/synamic.js' %}"></script>
+		{% block head_end %}
+		{% endblock  %}
+	</head>
+
+	<body>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="sidebar-profile col-md-12 col-lg-3"> 
+                    <div class="logo">
+                        <img class="img img-responsive img-circle center-block" src="{% getc 'url://file:/statics/profile.jpg' %}"  style="width:50%;">
+                        <h3 class="profile-name"><a href="{{site.root.curl.url}}"><b>Md. Sabuj</b> | Sarker</a></h3>
+                        <ul class="contact-points">
+                            
+                            {% if site.data.my_profile.github %}
+                            <li> <span class="glyphicon glyphicon-console"></span> &nbsp; <span class="contact-point-text"> <a href="{{site.data.my_profile.github}}" rel="nofollow">Github<a/> </span> </li>
+                            {% endif %}
+                            
+                            {% if site.data.my_profile.twitter %}
+                            <li> <span class="glyphicon glyphicon-user"></span> &nbsp; <span class="contact-point-text"> <a href="{{site.data.my_profile.twitter}}" rel="nofollow">Twitter<a/> </span> </li>
+                            {% endif %}
+                            
+                            {% if site.data.my_profile.google_plus %}
+                            <li> <span class="glyphicon glyphicon-user"></span> &nbsp; <span class="contact-point-text"> <a href="{{site.data.my_profile.google_plus}}" rel="nofollow">Goolge+<a/> </span> </li> 
+                            {% endif %}
+                            
+                            {% if site.data.my_profile.facebook %}
+                            <li> <span class="glyphicon glyphicon-user"></span> &nbsp; <span class="contact-point-text"> <a href="{{site.data.my_profile.facebook}}" rel="nofollow">Facebook<a/> </span></li> 
+                            {% endif %}
+                            
+                            {% if site.data.my_profile.email %}
+                            <li> <span class="glyphicon glyphicon-envelope"></span> &nbsp; <span class="contact-point-text"> {{site.data.my_profile.email}} </span> </li> 
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="main-block col-md-12 col-lg-9" id="main-block">
+                    <div class="row" id="site-header">
+                        <header>
+                            <nav class="navbar navbar-default col-md-12" id="top-navbar">
+                                <nav class="main-nav" role="navigation">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="#">SabujXi</a>
+                                    </div>
+
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% for menu in site.menu.primary %}
+                                            <li class="cl-effect-11"><a href="{{menu.link}}" data-hover="Home">{{menu.title}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div><!-- /.navbar-collapse -->
+                                </nav>
+                            </nav>
+                        </header>
+                    </div>
+                    
+                    <div class="row content-body" id="content-body">
+                        {% block content %}
+
+                        {% endblock %}
+                        {% block right_sidebar %}
+                            <aside class="col-md-4 right-sidebar">
+                                {% block widgets %}
+                                <div class="widget widget-category">
+                                    <h3 class="widget-title">All Categories</h3>
+                                    <ul>
+                                        {% for category in site.object_manager.get_marker('categories').marks %}
+                                            <li>
+                                                <a href="{{category.curl.url}}">{{category.title}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endblock widgets %}
+                            </aside>
+                        {% endblock right_sidebar %}
+                    </div>
+                    <div class="row">
+                        <footer id="site-footer">
+                            <div>
+                                <p class="copyright">&copy; 2015-2018 @ Md. Sabuj Sarker</p>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      {% block google_analytics %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93912624-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-93912624-1');
+        </script>
+        
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/5aec884f227d3d7edc24f6a0/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+      {% endblock google_analytics %}
+	</body>
+</html>

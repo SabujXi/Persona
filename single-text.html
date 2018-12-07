@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+        <main class="col-md-8">
+            {% block on_page_title %}
+                <h1>{{content.title}}</h1>
+            {% endblock %}
+            <hr/>
+            
+            
+            <!-- Next Prev TOC: prev-chapter, toc, next-chapter -->
+            {% if content.chapter %}
+                <div class="row">
+                    <div class="col-sm-4 text-center">
+                        {% if content.chapter.prev %}
+                            <a href="{{content.chapter.prev.curl.url}}">Prev Chapter</a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-sm-4 text-center">
+                        <a href="{{content.chapter.book_toc.book_url}}">Book TOC</a>
+                    </div>
+
+                    <div class="col-sm-4 text-center">
+                        {% if content.chapter.next %}
+                            <a href="{{content.chapter.next.curl.url}}">Next Chapter</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
+            <hr/>
+            
+            
+            {{content.body.as_markup}}
+            
+            <hr/>
+            <!-- Next Prev TOC with tile of chapters and book: prev-chapter, toc, next-chapter -->
+            {% if content.chapter %}
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        {% if content.chapter.prev %}
+                            Previous Chapter: {{content.chapter.prev.as_anchor | safe}}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-xs-10 col-xs-offset-1">
+                        Book Home: <a href="{{content.chapter.book.curl.url}}">{{content.chapter.book.title}}</a>
+                    </div>
+
+                    <div class="col-xs-10 col-xs-offset-1">
+                        {% if content.chapter.next %}
+                            Next Chapter: {{content.chapter.next.as_anchor | safe}}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
+            
+        </main>
+
+
+{% endblock content %}}
+
+{% block widgets %}
+    <div class="widget widget-toc">
+        <h3 class="widget-title">TOC</h3>
+        <div>
+            {{ content.toc.html | safe}}
+        </div>
+    </div>
+
+    {% if content.tags %}
+    <div class="widget widget-tags">
+        <h3 class="widget-title">Tags</h3>
+        <ul>
+            {% for tag in content.tags %}
+                <li>
+                    <a href="{{tag.curl.url}}">{{tag.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    
+    {% if content.categories %}
+    <div class="widget widget-categories">
+        <h3 class="widget-title">Categories</h3>
+        <ul>
+            {% for category in content.categories %}
+                <li>
+                    <a href="{{category.curl.url}}">{{category.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {{ super() }}
+{% endblock widgets %}
