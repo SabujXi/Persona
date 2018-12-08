@@ -12,14 +12,14 @@
 
 
 	    <!-- css -->
-		<link rel="stylesheet" type="text/css" href="{% getc 'url://file:/statics/template/libs/bootstrap3/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% getc 'url://asset:/persona/assets/libs/bootstrap3/css/bootstrap.min.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% getc 'url://sass:/themes/persona/assets/_sass/synamic.scss' %}">
 
 	    <!-- js -->
-	    <script type="text/javascript" src="{% getc 'url://file:/statics/template/libs/jquery/jquery3.slim.min.js' %}"></script>
-        {#<script src="{% getc 'url://file:/statics/template/libs/popper/popper.min.js' %}"></script>#}
-        <script type="text/javascript" src="{% getc 'url://file:/statics/template/libs/bootstrap3/js/bootstrap.min.js' %}"></script>
-        <script type="text/javascript" src="{% getc 'url://file:/statics/template/js/synamic.js' %}"></script>
+	    <script type="text/javascript" src="{% getc 'url://asset:/persona/assets/libs/jquery/jquery3.slim.min.js' %}"></script>
+        {#<script src="{% getc 'url://asset:/persona/assets/libs/popper/popper.min.js' %}"></script>#}
+        <script type="text/javascript" src="{% getc 'url://asset:/persona/assets/libs/bootstrap3/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% getc 'url://asset:/persona/assets/js/synamic.js' %}"></script>
 		{% block head_end %}
 		{% endblock  %}
 	</head>
@@ -30,7 +30,7 @@
                 <div class="sidebar-profile col-md-12 col-lg-3"> 
                     <div class="logo">
                         <img class="img img-responsive img-circle center-block" src="{% getc 'url://file:/statics/profile.jpg' %}"  style="width:50%;">
-                        <h3 class="profile-name"><a href="{{site.root.curl.url}}"><b>Md. Sabuj</b> | Sarker</a></h3>
+                        <h3 class="profile-name"><a href="{{site.root.curl.url}}">{{ site.data.my_profile.profile_title | safe }}</a></h3>
                         <ul class="contact-points">
                             
                             {% if site.data.my_profile.github %}
@@ -107,7 +107,11 @@
                     <div class="row">
                         <footer id="site-footer">
                             <div>
-                                <p class="copyright">&copy; 2015-2018 @ Md. Sabuj Sarker</p>
+                                <p class="copyright">
+                                    {% if site.settings.copyright_text %}
+                                        {{ site.settings.copyright_text | safe }}
+                                    {% endif %}
+                                </p>
                             </div>
                         </footer>
                     </div>
@@ -115,30 +119,14 @@
             </div>
         </div>
         
-      {% block google_analytics %}
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93912624-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-93912624-1');
-        </script>
+      {% block tracking %}
+        {% if site.settings.google_analytics_code %}
+            {{ site.settings.google_analytics_code | safe }}
+        {% endif %}
         
-        <!--Start of Tawk.to Script-->
-        <script type="text/javascript">
-            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/5aec884f227d3d7edc24f6a0/default';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-            })();
-        </script>
-        <!--End of Tawk.to Script-->
-      {% endblock google_analytics %}
+        {% if site.settings.twak_to_code %}
+            {{ site.settings.twak_to_code | safe}}
+        {% endif %}
+      {% endblock tracking %}
 	</body>
 </html>
